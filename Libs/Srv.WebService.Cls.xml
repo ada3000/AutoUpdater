@@ -1,0 +1,1370 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Srv.WebService.Cls</name>
+    </assembly>
+    <members>
+        <member name="T:iTeco.Lib.Srv.DisposableChannel`1">
+            <summary>
+            Обертка для канала (Channel), поддерживающая IDisposable, подходящий для использования ToChannel() в конструкции using
+            </summary>
+            <typeparam name="T">Интерфейс Channel</typeparam>
+        </member>
+        <member name="M:iTeco.Lib.Srv.DisposableChannel`1.#ctor(`0)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="Channel">Канал</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.DisposableChannel`1.DisposeManaged">
+            <summary>
+            Выполняет освобожение внутреннего объекта Channel
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.DisposableChannel`1.Channel">
+            <summary>
+            Объект Channel
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHelper">
+            <summary>
+            Вспомогательные методы компонент Web-сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToChannel``1(System.ServiceModel.Channels.Binding,System.String)">
+            <summary>
+            Получить канал связи с Web-сервисом
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="binding">Параметры соединения</param>
+            <param name="address">Адрес сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToDisposableChannel``1(System.ServiceModel.Channels.Binding,System.String)">
+            <summary>
+            Получить канал связи с Web-сервисом (для использования в конструкции using)
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="binding">Параметры соединения</param>
+            <param name="address">Адрес сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToChannel``1(iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig,System.String)">
+            <summary>
+            Получить канал связи с Web-сервисом
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="binding">Настройки параметров соединения</param>
+            <param name="address">Адрес сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToDisposableChannel``1(iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig,System.String)">
+            <summary>
+            Получить канал связи с Web-сервисом (для использования в конструкции using)
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="binding">Настройки параметров соединения</param>
+            <param name="address">Адрес сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToChannel``1(iTeco.Lib.Srv.WebServiceClientConfig)">
+            <summary>
+            Получить канал связи с Web-сервисом
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="clientConfig">Настройки клиента сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToDisposableChannel``1(iTeco.Lib.Srv.WebServiceClientConfig)">
+            <summary>
+            Получить канал связи с Web-сервисом (для использования в конструкции using)
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="clientConfig">Настройки клиента сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToChannel``1(iTeco.Lib.Srv.WebServiceClientContainerConfig)">
+            <summary>
+            Получить канал связи с Web-сервисом
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="containerConfig">Обложка встроенных настроек клиента сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToDisposableChannel``1(iTeco.Lib.Srv.WebServiceClientContainerConfig)">
+            <summary>
+            Получить канал связи с Web-сервисом (для использования в конструкции using)
+            </summary>
+            <typeparam name="T">Контракт сервиса</typeparam>
+            <param name="containerConfig">Обложка встроенных настроек клиента сервиса</param>
+            <returns>Канал связи с Web-сервисом</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToWebServiceClientConfig(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получить объект типизированных параметров настроек клиента сервиса
+            </summary>
+            <param name="cfg">Стандартный объект настроек процесса</param>
+            <returns>Объект настроек клиента сервиса</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.ToWebServiceClientConfig(iTeco.Lib.Srv.WebServiceClientContainerConfig)">
+            <summary>
+            Получить объект типизированных параметров настроек клиента сервиса
+            </summary>
+            <param name="containerConfig">Стандартный объект обложки встроенных настроек клиента web-сервиса</param>
+            <returns>Объект настроек клиента сервиса</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.CloseChannel(System.ServiceModel.ICommunicationObject)">
+            <summary>
+            Закрывать канал связь с Web-сервисом
+            </summary>
+            <param name="communication">Сервисный интерфейс канала связи с Web-сервисом</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHelper.GetContractBinding``1(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig)">
+            <summary>
+            Получить настройки Binding-а для контракта Web-сервиса
+            </summary>
+            <typeparam name="T">Интерфейс реализующий контракт</typeparam>
+            <param name="service">Настройки Web-сервиса</param>
+            <returns>Соответствующие настройки Binding-а или null</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHost">
+            <summary>
+            Класс процесса сервиса выполняющего хостинг Web-сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.DoWork(System.Object)">
+            <summary>
+            Собственно работа процесса
+            </summary>
+            <param name="p">не используется</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessServiceHost.InternalThreads">
+            <summary>
+            Кол-во внутренних потоков процесса
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase">
+            <summary>
+            Базовый класс для всех реализаций объекта хостинга Web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.Service">
+            <summary>
+            Настройки хостинга Web-сервиса, для которого используется объект
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.GetInternalThreads(System.Xml.XmlNode)">
+            <summary>
+            Кол-во необходимых компоненту внутренних потоков
+            </summary>
+            <param name="cfg">XML-настройки компонента</param>
+            <returns>Ограничения кол-ва потоков</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.Init(System.Xml.XmlNode,iTeco.Lib.Srv.ServiceMain.Control,iTeco.Lib.Srv.ServiceProcessBase.Events)">
+            <summary>
+            Инициализация компонента
+            </summary>
+            <param name="cfg">XML-настройки компонента</param>
+            <param name="control">Интерфейс управления сервисом, передаваемый процессам</param>
+            <param name="events">Интерфейс событий процесса сервиса</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.Init(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig,System.Xml.XmlNode,iTeco.Lib.Srv.ServiceMain.Control,iTeco.Lib.Srv.ServiceProcessBase.Events)">
+            <summary>
+            Инициализация компонента с настройками Web-сервиса
+            </summary>
+            <param name="srv">Настройки хостинга Web-сервиса, для которого используется объект</param>
+            <param name="cfg">XML-настройки компонента</param>
+            <param name="control">Интерфейс управления сервисом, передаваемый процессам</param>
+            <param name="events">Интерфейс событий процесса сервиса</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.GetCloseTimeoutEvent``1(System.Boolean,System.Nullable{System.TimeSpan})">
+            <summary>
+            Получить событие для CloseTimeout соответствующего контракта Web-сервиса
+            </summary>
+            <typeparam name="T">Интерфейс реализующий контракт</typeparam>
+            <param name="initialState">Начальное состояние события</param>
+            <param name="def">Значение timeout по умолчанию, если не задано TimerEvent.TimeSpanInfinite</param>
+            <returns>Событие</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.GetOpenTimeoutEvent``1(System.Boolean,System.Nullable{System.TimeSpan})">
+            <summary>
+            Получить событие для OpenTimeout соответствующего контракта Web-сервиса
+            </summary>
+            <typeparam name="T">Интерфейс реализующий контракт</typeparam>
+            <param name="initialState">Начальное состояние события</param>
+            <param name="def">Значение timeout по умолчанию, если не задано TimerEvent.TimeSpanInfinite</param>
+            <returns>Событие</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.GetReceiveTimeoutEvent``1(System.Boolean,System.Nullable{System.TimeSpan})">
+            <summary>
+            Получить событие для ReceiveTimeout соответствующего контракта Web-сервиса
+            </summary>
+            <typeparam name="T">Интерфейс реализующий контракт</typeparam>
+            <param name="initialState">Начальное состояние события</param>
+            <param name="def">Значение timeout по умолчанию, если не задано TimerEvent.TimeSpanInfinite</param>
+            <returns>Событие</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHost.InstanceBase.GetSendTimeoutEvent``1(System.Boolean,System.Nullable{System.TimeSpan})">
+            <summary>
+            Получить событие для SendTimeout соответствующего контракта Web-сервиса
+            </summary>
+            <typeparam name="T">Интерфейс реализующий контракт</typeparam>
+            <param name="initialState">Начальное состояние события</param>
+            <param name="def">Значение timeout по умолчанию, если не задано TimerEvent.TimeSpanInfinite</param>
+            <returns>Событие</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig">
+            <summary>
+            Настройки процесса хостинга Web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.Service">
+            <summary>
+            Настройки Web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.Instance">
+            <summary>
+            Настройки объекта хостинга Web-сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.GetInstanceConfig">
+            <summary>
+            Получить объект типизированных параметров настроек объекта хостинга Web-сервиса
+            </summary>
+            <returns>Объект настроек с типизированными параметрами</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig">
+            <summary>
+            Полные настройки Web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig.Name">
+            <summary>
+            Название
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig.BaseAddresses">
+            <summary>
+            Список базовых адресов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig.Behaviors">
+            <summary>
+            Список Behavior-ов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig.Endpoints">
+            <summary>
+            Список Endpoint-ов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig.Bindings">
+            <summary>
+            Список Binding-ов
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceInstanceConfig">
+            <summary>
+            Настройки объекта хостинга Web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceInstanceConfig.Assembly">
+            <summary>
+            Название сборки
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceInstanceConfig.Class">
+            <summary>
+            Название класса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceInstanceConfig.Singleton">
+            <summary>
+            Признак использования единичного экземпляра объекта хостинга Web-сервиса
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseAddressConfig">
+            <summary>
+            Настройки базового адреса Web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseAddressConfig.Uri">
+            <summary>
+            Адрес
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseAddressConfig.ToUri">
+            <summary>
+            Преобразовать в объект Uri
+            </summary>
+            <returns>Uri</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig">
+            <summary>
+            Настройки ServiceEndpoint
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.Name">
+            <summary>
+            Название
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.Address">
+            <summary>
+            Адрес (относительный от базового)
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.Binding">
+            <summary>
+            Тип Binding-а
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.BindingConfiguration">
+            <summary>
+            Название настроек Binding-а
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.Contract">
+            <summary>
+            Поддерживаемый контракт
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.IsSystemEndpoint">
+            <summary>
+            Признак системного
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.ListenUri">
+            <summary>
+            Некий адрес "прослушки"
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig.ListenUriMode">
+            <summary>
+            Некий режим адреса "прослушки"
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig">
+            <summary>
+            Настройки ограничений XmlDictionaryReader-а
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig.MaxDepth">
+            <summary>
+            Максимальная вложенность узлов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig.MaxStringContentLength">
+            <summary>
+            Максимальная длинна строки, возвращаемая reader-ом
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig.MaxArrayLength">
+            <summary>
+            Максимальный размер массивов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig.MaxBytesPerRead">
+            <summary>
+            Максимальное кол-во байт, возвращаемая при каждом чтении
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig.MaxNameTableCharCount">
+            <summary>
+            Максимальное кол-во байт в названии таблиц
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ReaderQuotasConfig.ToXmlDictionaryReaderQuotas">
+            <summary>
+            Преобразовать в объект XmlDictionaryRedareQuotas
+            </summary>
+            <returns>XmlDictionaryRedareQuotas</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig">
+            <summary>
+            Общие настройки Binding-ов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.Name">
+            <summary>
+            Название настроек
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.Namespace">
+            <summary>
+            Пространство имён
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.CloseTimeout">
+            <summary>
+            Время ожидания закрытия 99:99:99
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.OpenTimeout">
+            <summary>
+            Время ожидания открытия 99:99:99
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ReceiveTimeout">
+            <summary>
+            Время ожидания получения 99:99:99
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.SendTimeout">
+            <summary>
+            Время ожидания отправки 99:99:99
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ToBinding">
+            <summary>
+            Получить объект реализации Binding-а со стандартным интерфейсом
+            </summary>
+            <returns>Объект реализации Binding-а</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ArrayItem">
+            <summary>
+            Общее описание элемента списка настроек Binding-ов
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ArrayItem.ToBindingBaseConfig">
+            <summary>
+            Преобразовать в конкретную реализацию настроек Binding-ов
+            </summary>
+            <returns>Реализация настроек Binding-ов</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ArrayItem`1">
+            <summary>
+            Template типизированных элементов списка настроек Binding-ов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ArrayItem`1.Binding">
+            <summary>
+            Типизированные настройки Binding-а
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ArrayItem`1.ToBindingBaseConfig">
+            <summary>
+            Преобразовать в конкретную реализацию настроек Binding-ов
+            </summary>
+            <returns>Реализация настроек Binding-ов</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig">
+            <summary>
+            Настройки BasicHttpBinding
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.AllowCookies">
+            <summary>
+            Флаг использования Cookies
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.BypassProxyOnLocal">
+            <summary>
+            Флаг пропуска Proxy при обращении к локальным адресам
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.HostNameComparisonMode">
+            <summary>
+            Режим сравнения имён хостов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.MaxBufferSize">
+            <summary>
+            Максимальный размер буфера
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.MaxBufferPoolSize">
+            <summary>
+            Максимальный размер пула буфера
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.MaxReceivedMessageSize">
+            <summary>
+            Максимальный размер принимаемых сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.MessageEncoding">
+            <summary>
+            Кодировка сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.TextEncoding">
+            <summary>
+            Кодировка текста
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.TransferMode">
+            <summary>
+            Режим передачи сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.UseDefaultWebProxy">
+            <summary>
+            Флаг использования Proxy по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.ProxyAddress">
+            <summary>
+            Адрес Proxy
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.Security">
+            <summary>
+            Настройки безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.ReaderQuotas">
+            <summary>
+            Настройки ограничений чтения
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.ToBinding">
+            <summary>
+            Получить объект реализации Binding-а со стандартным интерфейсом
+            </summary>
+            <returns>Объект реализации Binding-а</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpBindingConfig.ToBasicHttpBinding">
+            <summary>
+            Получить объект BasicHttpBinding
+            </summary>
+            <returns>Объект BasicHttpBinding</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig">
+            <summary>
+            Настройки NetTcpBinding
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.HostNameComparisonMode">
+            <summary>
+            Режим сравнения имён хостов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.MaxBufferSize">
+            <summary>
+            Максимальный размер буфера
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.MaxBufferPoolSize">
+            <summary>
+            Максимальный размер пула буфера
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.MaxReceivedMessageSize">
+            <summary>
+            Максимальный размер принимаемых сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.TransferMode">
+            <summary>
+            Режим передачи сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.MaxConnections">
+            <summary>
+            Размер пула соединений для повторного использования
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.PortSharingEnabled">
+            <summary>
+            Флаг совместного использования портов разными Binding-ами
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.ListenBacklog">
+            <summary>
+            Максимальный размер очереди входящих соединений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.TransactionFlow">
+            <summary>
+            Флаг наличия транзакции
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.TransactionProtocol">
+            <summary>
+            Используемый протокол транзакий
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.Security">
+            <summary>
+            Настройки безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.ReaderQuotas">
+            <summary>
+            Настройки ограничений чтения
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.ToBinding">
+            <summary>
+            Получить объект реализации Binding-а со стандартным интерфейсом
+            </summary>
+            <returns>Объект реализации Binding-а</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpBindingConfig.ToNetTcpBinding">
+            <summary>
+            Получить объект NetTcpBinding
+            </summary>
+            <returns>Объект NetTcpBinding</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig">
+            <summary>
+            Настройки WSHttpBinding
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.AllowCookies">
+            <summary>
+            Флаг использования Cookies
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.BypassProxyOnLocal">
+            <summary>
+            Флаг пропуска Proxy при обращении к локальным адресам
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.HostNameComparisonMode">
+            <summary>
+            Режим сравнения имён хостов
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.MaxBufferPoolSize">
+            <summary>
+            Максимальный размер пула буфера
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.MaxReceivedMessageSize">
+            <summary>
+            Максимальный размер принимаемых сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.MessageEncoding">
+            <summary>
+            Кодировка сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.TextEncoding">
+            <summary>
+            Кодировка текста
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.UseDefaultWebProxy">
+            <summary>
+            Флаг использования Proxy по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.ProxyAddress">
+            <summary>
+            Адрес Proxy
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.TransactionFlow">
+            <summary>
+            Флаг наличия транзакции
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.Security">
+            <summary>
+            Настройки безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.ReaderQuotas">
+            <summary>
+            Настройки ограничений чтения
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.ToBinding">
+            <summary>
+            Получить объект реализации Binding-а со стандартным интерфейсом
+            </summary>
+            <returns>Объект реализации Binding-а</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpBindingConfig.ToWSHttpBinding">
+            <summary>
+            Получить объект WSHttpBinding
+            </summary>
+            <returns>Объект WSHttpBinding</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpSecurityConfig">
+            <summary>
+            Настройки BasicHttpSecurity
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpSecurityConfig.Mode">
+            <summary>
+            Режим безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpSecurityConfig.Transport">
+            <summary>
+            Настройки безопасности транспорта
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpSecurityConfig.Message">
+            <summary>
+            Настройки безопасности сообщений
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpSecurityConfig.ToBasicHttpSecurity(System.ServiceModel.BasicHttpSecurity)">
+            <summary>
+            Получить объект BasicHttpSecurity
+            </summary>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Объект BasicHttpSecurity</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpSecurityConfig">
+            <summary>
+            Настройки NetTcpSecurity
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpSecurityConfig.Mode">
+            <summary>
+            Режим безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpSecurityConfig.Transport">
+            <summary>
+            Настройки безопасности транспорта
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpSecurityConfig.Message">
+            <summary>
+            Настройки безопасности сообщений
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.NetTcpSecurityConfig.ToNetTcpSecurity(System.ServiceModel.NetTcpSecurity)">
+            <summary>
+            Получить объект NetTcpSecurity
+            </summary>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Объект NetTcpSecurity</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpSecurityConfig">
+            <summary>
+            Настройки WSHttpSecurity
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpSecurityConfig.Mode">
+            <summary>
+            Режим безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpSecurityConfig.Transport">
+            <summary>
+            Настройки безопасности транспорта
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpSecurityConfig.Message">
+            <summary>
+            Настройки безопасности сообщений
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.WSHttpSecurityConfig.ToWSHttpSecurity(System.ServiceModel.WSHttpSecurity)">
+            <summary>
+            Получить объект WSHttpSecurity
+            </summary>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Объект WSHttpSecurity</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.HttpTransportSecurityConfig">
+            <summary>
+            Настройки HttpTransportSecurity
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.HttpTransportSecurityConfig.ClientCredentialType">
+            <summary>
+            Тип клиентских credential используемых для аутентификации
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.HttpTransportSecurityConfig.ProxyCredentialType">
+            <summary>
+            Тип клиентских credential используемых для аутентификации на Proxy
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.HttpTransportSecurityConfig.Realm">
+            <summary>
+            Gets or sets the authentication realm for digest or basic authentication
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.HttpTransportSecurityConfig.ToHttpTransportSecurity">
+            <summary>
+            Получить объект HttpTransportSecurity
+            </summary>
+            <returns>Объект HttpTransportSecurity</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.TcpTransportSecurityConfig">
+            <summary>
+            Настройки TcpTransportSecurity
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.TcpTransportSecurityConfig.ClientCredentialType">
+            <summary>
+            Тип клиентских credential используемых для аутентификации
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.TcpTransportSecurityConfig.ProtectionLevel">
+            <summary>
+            Уровень безопасности для TCP потоков
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.TcpTransportSecurityConfig.ToTcpTransportSecurity">
+            <summary>
+            Получить объект TcpTransportSecurity
+            </summary>
+            <returns>Объект TcpTransportSecurity</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpMessageSecurityConfig">
+            <summary>
+            Настройки BasicHttpMessageSecurity
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpMessageSecurityConfig.ClientCredentialType">
+            <summary>
+            Тип клиентских credential используемых для аутентификации
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpMessageSecurityConfig.AlgorithmSuite">
+            <summary>
+            Используемый алгоритм безопасности
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.BasicHttpMessageSecurityConfig.ToBasicHttpMessageSecurity(System.ServiceModel.BasicHttpMessageSecurity)">
+            <summary>
+            Получить объект BasicHttpMessageSecurity
+            </summary>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Объект BasicHttpMessageSecurity</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.MessageSecurityOverTcpConfig">
+            <summary>
+            Настройки MessageSecurityOverTcp
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.MessageSecurityOverTcpConfig.ClientCredentialType">
+            <summary>
+            Тип клиентских credential используемых для аутентификации
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.MessageSecurityOverTcpConfig.AlgorithmSuite">
+            <summary>
+            Используемый алгоритм безопасности
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.MessageSecurityOverTcpConfig.ToMessageSecurityOverTcp(System.ServiceModel.MessageSecurityOverTcp)">
+            <summary>
+            Получить объект MessageSecurityOverTcp
+            </summary>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Объект MessageSecurityOverTcp</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.NonDualMessageSecurityOverHttpConfig">
+            <summary>
+            Настройки NonDualMessageSecurityOverHttp
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NonDualMessageSecurityOverHttpConfig.ClientCredentialType">
+            <summary>
+            Тип клиентских credential используемых для аутентификации
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NonDualMessageSecurityOverHttpConfig.AlgorithmSuite">
+            <summary>
+            Используемый алгоритм безопасности
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NonDualMessageSecurityOverHttpConfig.EstablishSecurityContext">
+            <summary>
+            Флаг использования security context token
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.NonDualMessageSecurityOverHttpConfig.NegotiateServiceCredential">
+            <summary>
+            Gets or sets a value that indicates whether the service credential is provisioned
+            at the client out of band or is obtained from the service through a process of negotiation.
+            true if service credential is obtained through a process of negotiation; otherwise, false.
+            The default is true.
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.NonDualMessageSecurityOverHttpConfig.ToNonDualMessageSecurityOverHttp(System.ServiceModel.NonDualMessageSecurityOverHttp)">
+            <summary>
+            Получить объект NonDualMessageSecurityOverHttp
+            </summary>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Объект NonDualMessageSecurityOverHttp</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig">
+            <summary>
+            Общие свойства настроек Behavior
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig.GetServiceBehaviorType">
+            <summary>
+            Получить тип конкретной реализации Behavior
+            </summary>
+            <returns>Тип реализации</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig.ToServiceBehavior">
+            <summary>
+            Преобразовать к общему интерфейсу IServiceBehavior
+            </summary>
+            <returns>IServiceBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig.CopyTo(System.ServiceModel.Description.IServiceBehavior)">
+            <summary>
+            Скопировать параметры в объект IServiceBehavior
+            Объект будет преобразован к классу конкретной реализации,
+            если это не удастся сделать, параметры не будут установлены
+            </summary>
+            <param name="behavior">Экземпляр объекта, переданый по общему интерфейсу IServiceBehavior</param>
+            <returns>true - значения установлены, false - не удалось установить значения</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig">
+            <summary>
+            Настройки ServiceMetadataBehavior
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.ExternalMetadataLocation">
+            <summary>
+            Путь до "внешних" метаданных
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.HttpGetEnabled">
+            <summary>
+            Флаг доступности сервиса метаданных по запросу HTTP/GET
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.HttpGetUrl">
+            <summary>
+            Путь размещения метаданных для запроса HTTP/GET
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.HttpsGetEnabled">
+            <summary>
+            Флаг доступности сервиса метаданных по запросу HTTPS/GET
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.HttpsGetUrl">
+            <summary>
+            Путь размещения метаданных для запроса HTTPS/GET
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.ToServiceMetadataBehavior">
+            <summary>
+            Получить объект ServiceMetadataBehavior
+            </summary>
+            <returns>Объект ServiceMetadataBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.GetServiceBehaviorType">
+            <summary>
+            Получить тип конкретной реализации Behavior
+            </summary>
+            <returns>Тип реализации</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.ToServiceBehavior">
+            <summary>
+            Преобразовать к общему интерфейсу IServiceBehavior
+            </summary>
+            <returns>IServiceBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceMetadataBehaviorConfig.CopyTo(System.ServiceModel.Description.IServiceBehavior)">
+            <summary>
+            Скопировать параметры в объект IServiceBehavior
+            Объект преобразовывается к классу конкретной реализации,
+            если это не удасётся сделать, параметры не установливаются
+            </summary>
+            <param name="behavior">Экземпляр объекта, переданый по общему интерфейсу IServiceBehavior</param>
+            <returns>true - значения установлены, false - не удалось установить значения</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig">
+            <summary>
+            Настройки ServiceDebugBehavior
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.HttpHelpPageEnabled">
+            <summary>
+            Флаг наличия HTML-"помошника" по http
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.HttpHelpPageUrl">
+            <summary>
+            Путь до HTML-файла "помошника" по http
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.HttpsHelpPageEnabled">
+            <summary>
+            Флаг наличия HTML-"помошника" по https
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.HttpsHelpPageUrl">
+            <summary>
+            Путь до HTML-файла "помошника" по https
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.IncludeExceptionDetailInFaults">
+            <summary>
+            Флаг возвращения детализированной информации при сбоях
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.ToServiceDebugBehavior">
+            <summary>
+            Получить объект ServiceDebugBehavior
+            </summary>
+            <returns>Объект ServiceDebugBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.GetServiceBehaviorType">
+            <summary>
+            Получить тип конкретной реализации Behavior
+            </summary>
+            <returns>Тип реализации</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.ToServiceBehavior">
+            <summary>
+            Преобразовать к общему интерфейсу IServiceBehavior
+            </summary>
+            <returns>IServiceBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceDebugBehaviorConfig.CopyTo(System.ServiceModel.Description.IServiceBehavior)">
+            <summary>
+            Скопировать параметры в объект IServiceBehavior
+            Объект преобразовывается к классу конкретной реализации,
+            если это не удасётся сделать, параметры не установливаются
+            </summary>
+            <param name="behavior">Экземпляр объекта, переданый по общему интерфейсу IServiceBehavior</param>
+            <returns>true - значения установлены, false - не удалось установить значения</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig">
+            <summary>
+            Настройки ServiceSecurityAuditBehavior
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.AuditLogLocation">
+            <summary>
+            Положение лога
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.MessageAuthenticationAuditLevel">
+            <summary>
+            Уровень логирования сообщений
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.ServiceAuthorizationAuditLevel">
+            <summary>
+            Уровень логирования сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.SuppressAuditFailure">
+            <summary>
+            Флаг влияния сбоя логирования на приложение
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.ToServiceSecurityAuditBehavior">
+            <summary>
+            Получить объект ServiceSecurityAuditBehavior
+            </summary>
+            <returns>Объект ServiceSecurityAuditBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.GetServiceBehaviorType">
+            <summary>
+            Получить тип конкретной реализации Behavior
+            </summary>
+            <returns>Тип реализации</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.ToServiceBehavior">
+            <summary>
+            Преобразовать к общему интерфейсу IServiceBehavior
+            </summary>
+            <returns>IServiceBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceSecurityAuditBehaviorConfig.CopyTo(System.ServiceModel.Description.IServiceBehavior)">
+            <summary>
+            Скопировать параметры в объект IServiceBehavior
+            Объект преобразовывается к классу конкретной реализации,
+            если это не удасётся сделать, параметры не установливаются
+            </summary>
+            <param name="behavior">Экземпляр объекта, переданый по общему интерфейсу IServiceBehavior</param>
+            <returns>true - значения установлены, false - не удалось установить значения</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig">
+            <summary>
+            Настройки ServiceThrottlingBehavior
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.Default">
+            <summary>
+            Настройки по умолчанию
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.MaxConcurrentCalls">
+            <summary>
+            Максимальное кол-во сообщений одновременно обрабатываемых через ServiceHost
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.MaxConcurrentInstances">
+            <summary>
+            Максимальное кол-во одновременно запускаемых объектов хостинга
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.MaxConcurrentSessions">
+            <summary>
+            Максимальное кол-во одновременно обрабатываемых сессий
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.ToServiceThrottlingBehavior">
+            <summary>
+            Получить объект ServiceThrottlingBehavior
+            </summary>
+            <returns>Объект ServiceThrottlingBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.GetServiceBehaviorType">
+            <summary>
+            Получить тип конкретной реализации Behavior
+            </summary>
+            <returns>Тип реализации</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.ToServiceBehavior">
+            <summary>
+            Преобразовать к общему интерфейсу IServiceBehavior
+            </summary>
+            <returns>IServiceBehavior</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceThrottlingBehaviorConfig.CopyTo(System.ServiceModel.Description.IServiceBehavior)">
+            <summary>
+            Скопировать параметры в объект IServiceBehavior
+            Объект преобразовывается к классу конкретной реализации,
+            если это не удасётся сделать, параметры не установливаются
+            </summary>
+            <param name="behavior">Экземпляр объекта, переданый по общему интерфейсу IServiceBehavior</param>
+            <returns>true - значения установлены, false - не удалось установить значения</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostException">
+            <summary>
+            Класс исключений процесса сервиса выполняющего хостинг Web-сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostException.#ctor(System.String)">
+            <summary>
+            Создать исключение с указанным текстом сообщения
+            </summary>
+            <param name="msg">Текст сообщения</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostException.#ctor(System.String,System.Exception)">
+            <summary>
+            Создать исключение с указанным текстом сообщения и произошедшей ранее ошибке
+            </summary>
+            <param name="msg">Текст сообщения</param>
+            <param name="inner">Произошедшая ранее ошибка вызвавшая эту</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Создать исключение с сериализованными данными
+            </summary>
+            <param name="info">Информация о произошедшем исключении</param>
+            <param name="stream">Поясняющее ошибку сообщение</param>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessServiceHostHelper">
+            <summary>
+            Вспомогательные методы
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.ToProcessServiceHostConfig(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получить объект типизированных параметров настроек процесса
+            </summary>
+            <param name="cfg">Стандартный объект настроек процесса</param>
+            <returns>Объект настроек с типизированными параметрами</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.CreateXmlDictionaryReaderQuotas(System.Xml.XmlNode)">
+            <summary>
+            Создать объект ограничений reader-а из XML-настроек
+            </summary>
+            <param name="nodeQuotas">XML-настройки</param>
+            <returns>Объект ограничений</returns>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostHelper.SecurityAlgorithmSuites">
+            <summary>
+            Словарь соответствия названий алгоритмов статическим объектам реализации
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.ToSecurityAlgorithmSuite(System.String,System.ServiceModel.Security.SecurityAlgorithmSuite)">
+            <summary>
+            Преобразовать строковое значение в одну из реализаций SecurityAlgorithmSuite
+            </summary>
+            <param name="name">Строка содержащая название алгоритма</param>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Реализация SecurityAlgorithmSuite</returns>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostHelper.TransactionProtocols">
+            <summary>
+            Словарь соответствия названий протоколов статическим объектам реализации
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.ToTransactionProtocol(System.String,System.ServiceModel.TransactionProtocol)">
+            <summary>
+            Перобразовать строковое значение в одну из реализаций TransactionProtocol
+            </summary>
+            <param name="name">Строка содержащая название протокола</param>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Реализация TransactionProtocol</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.ToUriArray(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseAddressConfig[])">
+            <summary>
+            Преобразовать массив настроек базовых адресов сервиса в список объектов Uri
+            </summary>
+            <param name="baseAddresses">Массив настроек базовых адресов сервиса</param>
+            <returns>Список объектов Uri</returns>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessServiceHostHelper.BindingConfigTypes">
+            <summary>
+            Словарь соответствия названий Binding-ов типам реализаций настроек
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.IsCorrespond(iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig,iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig)">
+            <summary>
+            Проверить принадлежность настроек Binding-а указанному Endpoint-у
+            </summary>
+            <param name="binding">Проверяемые настройки Binding</param>
+            <param name="endpoint">Настройки ServiceEndpoint</param>
+            <returns>Результат проверки</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.Find(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig[],System.Type)">
+            <summary>
+            Получить настройки ServiceEndpoint для указанного типа контракта из списка имеющихся
+            </summary>
+            <param name="endpoints">Список настроек ServiceEndpoint</param>
+            <param name="contractType">Тип контракта (поддерживаемого сервисом интерфейса)</param>
+            <returns>Соответствующие настройки ServiceEndpoint или null</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.Find``1(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig[])">
+            <summary>
+            Получить настройки ServiceEndpoint для интерфейса контракта из списка имеющихся
+            </summary>
+            <typeparam name="T">Интерфейс контракта</typeparam>
+            <param name="endpoints">Список настроек ServiceEndpoint</param>
+            <returns>Соответствующие настройки ServiceEndpoint или null</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.Find(iTeco.Lib.Srv.ProcessServiceHostConfig.BindingBaseConfig.ArrayItem[],iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceEndpointConfig)">
+            <summary>
+            Получить настройки Binding-а для ServiceEnpoint из списка имеющихся
+            </summary>
+            <param name="bindings">Список настроек Binding-ов</param>
+            <param name="endpoint">Настройки ServiceEndpoint</param>
+            <returns>Соответствующие настройки Binding-а или null</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.Assign(System.Collections.Generic.KeyedByTypeCollection{System.ServiceModel.Description.IServiceBehavior},iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig)">
+            <summary>
+            Добавить ServiceBehavior в список или установить параметры существующего
+            </summary>
+            <param name="behaviors">Список Behaviors</param>
+            <param name="config">Настройки</param>
+            <returns>Добавленный или изменённый объект</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.Find(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig[],System.Type)">
+            <summary>
+            Получить настройки Behavior указанного типа
+            </summary>
+            <param name="behaviors">Список настроек</param>
+            <param name="behaviorType">Один из типов Service*Behavior</param>
+            <returns>Найденные настройки или null</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.Find``1(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig[])">
+            <summary>
+            Получить настройки Behavior указанного типа
+            </summary>
+            <typeparam name="T">Один из типов Service*Behavior</typeparam>
+            <param name="behaviors">Список настроек</param>
+            <returns>Найденные настройки или null</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.GetBehavior``1(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceBaseBehaviorConfig[],``0)">
+            <summary>
+            Получить настройки Behavior указанного класса, если не найдены, вернуть значение по умолчанию
+            </summary>
+            <typeparam name="TBehavior">Один из классов Service*Behavior</typeparam>
+            <param name="behaviors">Список настроек</param>
+            <param name="def">Значение по умолчанию</param>
+            <returns>Найденные настройки или значение по умолчанию</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.GetContractTimeout``1(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig,System.TimeSpan,System.Func{System.ServiceModel.Channels.Binding,System.TimeSpan})">
+            <summary>
+            Прототип метода получения времени timeout-а контракта
+            </summary>
+            <typeparam name="T">Интерфейс контракта</typeparam>
+            <param name="cfg">Настройки Web-сервиса</param>
+            <param name="def">Значение по умолчанию</param>
+            <param name="value">Метод возвращающий значение соответствующего свойства из настроек Binding-а,
+            напр. (binding) => binding.SendTimeout</param>
+            <returns>Значение timeout-а</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.ToInstanceBase(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceInstanceConfig)">
+            <summary>
+            Создать объект хостинга Web-сервиса из настроек
+            </summary>
+            <param name="cfg">Настройки объекта хостинга Web-сервиса</param>
+            <returns>Объект хостинга Web-сервиса</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessServiceHostHelper.ToServiceHost(iTeco.Lib.Srv.ProcessServiceHostConfig.ServiceConfig,iTeco.Lib.Srv.ProcessServiceHost.InstanceBase,System.Boolean)">
+            <summary>
+            Преобразовать настройки в экземпляр Web-сервиса
+            </summary>
+            <param name="serviceConfig">Настройки Web-сервиса</param>
+            <param name="instance">Объект хостинга Web-сервиса</param>
+            <param name="singleton">Признак использования единственного экземпляра объекта хостинга Web-сервиса</param>
+            <returns>Объект Web-сервиса</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.WebServiceClientConfig">
+            <summary>
+            Класс настроек клиента web-сервиса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.WebServiceClientConfig.Address">
+            <summary>
+            Адрес сервера
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.WebServiceClientConfig.Binding">
+            <summary>
+            Настройки Binding-а
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.WebServiceClientContainerConfig">
+            <summary>
+            Класс обложки настроек клиента web-сервиса, размещённых внутри xml-элемента верхнего уровня
+            СПЕЦИАЛЬНО ДЛЯ ЛЕНИВЫХ ЛОХОВ, КОТОРЫМ ВЛОМ НАПИСАТЬ СОБСТВЕННУЮ РЕАЛИЗАЦИЮ ПО МЕСТУ
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.WebServiceClientContainerConfig.Server">
+            <summary>
+            Настройки клиента web-сервиса
+            </summary>
+        </member>
+    </members>
+</doc>

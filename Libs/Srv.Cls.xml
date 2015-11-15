@@ -1,0 +1,993 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Srv.Cls</name>
+    </assembly>
+    <members>
+        <member name="T:iTeco.Lib.Srv.ProcessActionStorage">
+            <summary>
+            Реализация действия сервиса выполняющего операцию с хранилищем
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ActionBase">
+            <summary>
+            Базовый класс атомарного действия процесса последовательной обработки
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow">
+            <summary>
+            Класс процесса сервиса выполняющего последовательную обработку в несколько потоков
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceProcessBase">
+            <summary>
+            Базовый класс всех процессов сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.#ctor(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Конструктор с настройками
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.OnChangeConfig(iTeco.Lib.Srv.ServiceProcessBase.Config,System.EventArgs)">
+            <summary>
+            Обработка события изменения настроек
+            </summary>
+            <param name="sender">Инициатор события</param>
+            <param name="args">Параметры</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.DoError(System.Exception,System.Object)">
+            <summary>
+            Обработка ошибки процесса
+            </summary>
+            <param name="err">Возникшая ошибка</param>
+            <param name="p">Параметр переданный в Start</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.QueryObject(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получить объект процесса для указанных настроек
+            Если в настройках установлен флаг reuse, объект будет получен через механизм пула неиспользуемых объектов
+            Если объекта нет в пуле или не установлен флаг reuse, будет создан новый объект
+            </summary>
+            <param name="cfg">Настройки инициализации процесса</param>
+            <returns>Объект процесса с установленными настройками</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.ReleaseObject(iTeco.Lib.Srv.ServiceProcessBase)">
+            <summary>
+            "Освободить" неиспользуемый объект
+            Если в настройках объекта установлен флаг reuse, он будет помещён в пул объектов
+            для дальнейшего распределения, в противном случае ничего не делается
+            </summary>
+            <param name="proc">Объект процесса</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Cfg">
+            <summary>
+            Все настройки процесса
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Control">
+            <summary>
+            Интерфейс управления сервисом
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.InternalThreads">
+            <summary>
+            Кол-во внутренних потоков процесса
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceProcessBase.Events">
+            <summary>
+            Класс событий процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceProcessBase.Events.Flags">
+            <summary>
+            Словарь именованных флагов
+            Новые флаги добавляются автоматически в процессе выполнения при первом обращении
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Events.Wait(System.Int32)">
+            <summary>
+            Ожидание событий или таймера
+            Ожидается одно из событий Stopping и CfgChanged
+            </summary>
+            <param name="millisecsTimeout">время [ms], после которого выход происходит без возникновения событий</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Events.Wait">
+            <summary>
+            Ожидание событий
+            Ожидается одно из событий Stopping и CfgChanged
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Events.CfgChanged">
+            <summary>
+            Событие изменения настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Events.RunIdle">
+            <summary>
+            Событие "пустого" запуска
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceProcessBase.Config">
+            <summary>
+            Настройки процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceProcessBase.Config.NodeAssemblyName">
+            <summary>
+            Название атрибута настроек содержанего имя сборки
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceProcessBase.Config.NodeTypeName">
+            <summary>
+            Название атрибута настроек содержанего имя класса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceProcessBase.Config.NodeName">
+            <summary>
+            Название атрибута настроек содержанего имя процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceProcessBase.Config.NodeID">
+            <summary>
+            Название атрибута настроек содержанего идентификатора процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceProcessBase.Config.NodeReuse">
+            <summary>
+            Название атрибута настроек содержанего признак повторного использования объекта процесса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Конструктор с инициализацией xml-настроек
+            </summary>
+            <param name="xml">xml-настройки</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.ToString">
+            <summary>
+            Преобразование к строке
+            </summary>
+            <returns>Содержимое настроек в формате XML</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.Equals(System.String)">
+            <summary>
+            Определить равен ли идентификаторов процесса указаному
+            </summary>
+            <param name="id">Идентификатор для сравнения</param>
+            <returns>true - равны, иначе - false</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.Equals(System.String,System.StringComparison)">
+            <summary>
+            Определить равен ли идентификаторов процесса указаному
+            </summary>
+            <param name="id">Идентификатор для сравнения</param>
+            <param name="comparisonType">Параметры сравнения</param>
+            <returns>true - равны, иначе - false</returns>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.NotifyChange">
+            <summary>
+            Уведомление изменения настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.Xml">
+            <summary>
+            Содержимое настроек в формате XML
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.Hash">
+            <summary>
+            Хэш-код содержимого настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.AssemblyName">
+            <summary>
+            Название сборки объекта процесса
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.TypeName">
+            <summary>
+            Класс объекта процесса
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.IsReuse">
+            <summary>
+            Флаг возможности повторно использовать объект
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.ID">
+            <summary>
+            Идентификатор процесса
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceProcessBase.Config.Name">
+            <summary>
+            Название процесса
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceProcessBase.Config.List">
+            <summary>
+            Список настроек процессов
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.List.#ctor(System.Xml.XmlNodeList)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="list">список xml-настроек</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.Config.List.Find(System.String)">
+            <summary>
+            Найти настройки соответствующие идентификатору процесса
+            </summary>
+            <param name="id">Идентификатор процесса</param>
+            <returns>Найденные настройки или null</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceProcessBase.List">
+            <summary>
+            Список процессов
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBase.List.Find(System.String)">
+            <summary>
+            Найти процесс по идентификатору
+            </summary>
+            <param name="id">Идентификатор процесса</param>
+            <returns>Нейденный процесс или null</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.#ctor">
+            <summary>
+            Конструктор процесса сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.DoWork(System.Object)">
+            <summary>
+            Собственно работа процесса
+            </summary>
+            <param name="p">не используется</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.GetThread">
+            <summary>
+            Получить поток процесса и добавить его в список выполняемых
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.OnThreadEnd(iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow,System.EventArgs)">
+            <summary>
+            Обработка события окончания работы потока
+            </summary>
+            <param name="thread">Завершившийся поток</param>
+            <param name="args">Не используется</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.InternalThreads">
+            <summary>
+            Кол-во внутренних потоков процесса
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ActionBase">
+            <summary>
+            Базовый класс атомарного действия процесса последовательной обработки
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionBase.GetInternalThreads(System.Xml.XmlNode)">
+            <summary>
+            Кол-во необходимых компоненту потоков
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionBase.Execute(iTeco.Lib.Srv.ProcessWorkflow.ActionObject,System.Xml.XmlNode,System.Threading.WaitHandle,System.Diagnostics.EventLog)">
+            <summary>
+            Выполнить действие
+            </summary>
+            <param name="obj">исходный объект</param>
+            <param name="cfg">настройки действия</param>
+            <param name="stopping">событие остановки</param>
+            <param name="log">используемый EventLog</param>
+            <returns>полученный в результате объект</returns>
+            <remarks>
+            В качестве возврата может быть получен тот же объект, что и исходный, но с изменённым состоянием.
+            В случае, если действие оказалось "пустым" (например, не прочитан объект из базы),
+            следует вернуть null, чтобы просигнализировать потоку о прекращении выполнения
+            </remarks>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionBase.QueryObject(System.Xml.XmlNode)">
+            <summary>
+            Получить объект действия,
+            в зависимости от настроек объекта, он может быть получен из общего пула
+            </summary>
+            <param name="cfg">Настройки действия</param>
+            <returns>Полученый объект</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionBase.ReleaseObject(iTeco.Lib.Srv.ProcessWorkflow.ActionBase)">
+            <summary>
+            Освободить неиспользуемый объект действия,
+            в зависимости от настроек объекта, он может быть помещён в общего пул
+            </summary>
+            <param name="obj">Неиспользуемый объект</param>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ActionObject">
+            <summary>
+            Базовый класс объекта обработки процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropID">
+            <summary>
+            Название свойства идентификатора
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropThreadID">
+            <summary>
+            Название свойства идентификатора потока
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropThreadName">
+            <summary>
+            Название свойства названия потока
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropProcessID">
+            <summary>
+            Название свойства идентификатора процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropProcessName">
+            <summary>
+            Название свойства названия процесса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.#ctor">
+            <summary>
+            Конструктор объекта обработки
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.#ctor(iTeco.Lib.Base.PropContainer,System.String)">
+            <summary>
+            Конструктор объекта обработки
+            </summary>
+            <param name="props">Контейнер именованных свойств</param>
+            <param name="stgName">Название раздела хранилища</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.OnLoadBegin(iTeco.Lib.Stg.StorageBase)">
+            <summary>
+            Вызывается перед операцией загрузки из хранилища
+            </summary>
+            <param name="stg">Раздел хранилища</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.OnSaveBegin(iTeco.Lib.Stg.StorageBase)">
+            <summary>
+            Вызывается перед операцией сохранения в хранилище
+            </summary>
+            <param name="stg">Раздел хранилища</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.OnDestroyBegin(iTeco.Lib.Stg.StorageBase)">
+            <summary>
+            Вызывается перед операцией удаления из хранилища
+            </summary>
+            <param name="stg">Раздел хранилища</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.ID">
+            <summary>
+            Идентификатор объекта
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.Thread">
+            <summary>
+            Поток
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.Process">
+            <summary>
+            Процесс
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.Factory">
+            <summary>
+            Фабрика хранилища, с которым выполнялась последняя операция
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropObjSimple">
+            <summary>
+            Вспомогательный класс для организации свойств типа IObjSimple
+            </summary>
+            <remarks>
+            Даёт возможность организовать обращение к элементам списка
+            именованных свойств как к свойству типа IObjSimpe
+            </remarks>
+            <example>
+            public IObjSimple Type
+            {
+            	get { return new PropObjSimple(Props,"idType","sType"); }
+            }
+            </example>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropObjSimple._props">
+            <summary>
+            Список именованных свойств, на который проецируются типизированные свойства
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropObjSimple.#ctor(iTeco.Lib.Base.PropContainer,System.String,System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="props">Список именованных свойств, в котором должны находится значения параметров</param>
+            <param name="namePropID">Название свойства соответствующего идентификатору</param>
+            <param name="namePropName">Название свойства соответсвующего названию</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropObjSimple.ID">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ActionObject.PropObjSimple.Name">
+            <summary>
+            Название
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID">
+            <summary>
+            Базовый класс пула идентификаторов потоков
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID._pool">
+            <summary>
+            Пул идентификаторов
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID.Dequeue(System.Collections.Generic.HashSet{System.Int32})">
+            <summary>
+            Получить свободный идентификатор потока
+            </summary>
+            <param name="idUsed">Список используемых в данный момент идентификаторов</param>
+            <returns>Идентификатор для нового процесса</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID.Enqueue(System.Int32)">
+            <summary>
+            Вернуть идентификатор потока для дальнейшего распределения
+            </summary>
+            <param name="id">Идентификатор потока</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID.Init(System.Object,System.Collections.Generic.HashSet{System.Int32})">
+            <summary>
+            Инициализировать список доступных для распределения идентификаторов потоков
+            </summary>
+            <param name="idProcess">Идентификатор процесса</param>
+            <param name="idUsed">Список используемых в данный момент идентификаторов</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID.DoInit(System.Xml.XmlNode)">
+            <summary>
+            Выполнить первоначальную инициализацию
+            </summary>
+            <param name="cfg">Настройки объекта пула</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.PoolThreadID.Create(System.Xml.XmlNode)">
+            <summary>
+            Создать объект пула идентификаторов потоков,
+            если настройки не заданы или в настройках отсутствует идентификатор объекта,
+            будет создан объект класса PoolThreadID
+            </summary>
+            <param name="cfg">Настройки объекта пула</param>
+            <returns>Созданный объект пула</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow">
+            <summary>
+            Класс потока процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.ID">
+            <summary>
+            Идентификатор потока процесса
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.Cfg">
+            <summary>
+            Настройки процесса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.DoWork(System.Object)">
+            <summary>
+            Собственно работа потока
+            </summary>
+            <param name="p">Не используется</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.DoError(System.Exception,System.Object)">
+            <summary>
+            Обработка возникшей ошибки
+            </summary>
+            <param name="err">Ошибка</param>
+            <param name="p">Параметр переданный в Start (не используется)</param>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.Events">
+            <summary>
+            Класс событий потока
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.Events.Idle">
+            <summary>
+            Событие "пустого" запуска
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List">
+            <summary>
+            Список потоков
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.NotifyThreadEnd">
+            <summary>
+            Уведомление о завершении потока
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.NotifyStop">
+            <summary>
+            Уведомление об остановке
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List._empty">
+            <summary>
+            Событие завершения всех потоков
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.OnThreadStop(iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow,System.EventArgs)">
+            <summary>
+            Уведомление о завершении работы потока
+            </summary>
+            <param name="thread">Завершившийся поток</param>
+            <param name="args">Стандартный аргумент уведомлений</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.Add(iTeco.Lib.Srv.ServiceProcessBase.Config,iTeco.Lib.Srv.ServiceProcessBase.Events)">
+            <summary>
+            Добавить поток в список
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+            <param name="e">События процесса</param>
+            <returns>Добавленный поток</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.Stop(System.Boolean)">
+            <summary>
+            Остановить все потоки
+            </summary>
+            <param name="wait">флаг ожидания остановки</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.InitPoolID(System.Object,System.Xml.XmlNode)">
+            <summary>
+            Инициализация пула идентификаторов потоков,
+            в случае указания настроек процесса, создаётся новый объект пула,
+            по умолчанию создаётся объект класса PoolThreadID
+            </summary>
+            <param name="idProcess">Идентификатор процесса</param>
+            <param name="cfg">Настройки процесса</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ProcessWorkflow.ThreadWorkflow.List.Count">
+            <summary>
+            Кол-во потоков процесса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessActionStorage.GetInternalThreads(System.Xml.XmlNode)">
+            <summary>
+            Кол-во необходимых компоненту потоков
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessActionStorage.Execute(iTeco.Lib.Srv.ProcessWorkflow.ActionObject,System.Xml.XmlNode,System.Threading.WaitHandle,System.Diagnostics.EventLog)">
+            <summary>
+            Выполнить действие
+            </summary>
+            <param name="obj">исходный объект</param>
+            <param name="cfg">настройки действия</param>
+            <param name="stopping">событие остановки</param>
+            <param name="log">используемый EventLog</param>
+            <returns>полученный в результате объект</returns>
+            <remarks>
+            В качестве возврата может быть получен тот же объект, что и исходный, но с изменённым состоянием.
+            В случае, если действие оказалось "пустым" (не прочитан объект из базы), возвращается null,
+            чтобы просигнализировать потоку о прекращении выполнения
+            </remarks>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessActionStorage.Config">
+            <summary>
+            Класс настроек действия
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessActionStorage.Config.Obj">
+            <summary>
+            Имя объекта
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessActionStorage.Config.Params">
+            <summary>
+            Список именованных параметров объекта
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessActionStorage.Config.Mode">
+            <summary>
+            Режим открытия раздела хранилища
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ProcessActionStorage.Config.Storage">
+            <summary>
+            Настройки хранилища
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessActionStorage.Config.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Конструктор с инициализацией xml-настроек
+            </summary>
+            <param name="cfg">xml-настройки</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessActionStorage.Config.ToFactory">
+            <summary>
+            Преобразование настроек в объект фабрики хранилища
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessActionStorage.Config.ToMode(System.Xml.XmlNode)">
+            <summary>
+            Преобразование настроек в режим открытия раздела хранилища
+            </summary>
+            <param name="cfg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ProcessWorkflowUtils">
+            <summary>
+            Контейнер вспомогательных методов
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflowUtils.GetThreadEnd(iTeco.Lib.Srv.ServiceProcessBase.Events)">
+            <summary>
+            Получить событие окончания потока
+            </summary>
+            <param name="events">Объект событий процесса</param>
+            <returns>Событие</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflowUtils.GetMaxThreads(iTeco.Lib.Srv.ServiceProcessBase.Config,System.Int32)">
+            <summary>
+            Получить максимальное кол-во потоков процесса
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+            <param name="def">Значение по умолчанию, если не задано в настройках</param>
+            <returns>Максимальное кол-во потоков</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflowUtils.GetIdleTimeout(iTeco.Lib.Srv.ServiceProcessBase.Config,System.Int32)">
+            <summary>
+            Получить время ожидания при "пустом" запуске [ms]
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+            <param name="def">Значение по умолчанию, если не задано в настройках</param>
+            <returns>Время ожидания [ms]</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflowUtils.GetPoolID(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получить настройки пула идентификаторов потоков
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+            <returns>Настройки объекта пула</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ProcessWorkflowUtils.GetActions(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получить настройки действий процесса
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+            <returns>Список настроек объектов действий</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceConfigFile">
+            <summary>
+            Класс настроек сервиса использующий в качестве источника xml-файл
+            Путь до файла получается в конструкторе
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.Config">
+            <summary>
+            Класс настроек сервиса
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain">
+            <summary>
+            Класс основного потока сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.#ctor(iTeco.Lib.Srv.ServiceMain.Config)">
+            <summary>
+            Конструктор основного потока сервиса
+            </summary>
+            <param name="cfg">Настройки инициализации</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.DoWork(System.Object)">
+            <summary>
+            Собственно работа процесса
+            </summary>
+            <param name="p">не используется</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.DoError(System.Exception,System.Object)">
+            <summary>
+            Обработка ошибки процесса
+            </summary>
+            <param name="err">Возникшая ошибка</param>
+            <param name="p">Параметр переданный в Start</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.GetProcess(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получение объекта процесса, соответствующего настройкам
+            </summary>
+            <param name="cfg">Настройки процесса</param>
+            <returns>Объект процесса сервиса</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.OnChangeConfig(iTeco.Lib.Srv.ServiceMain.Config,System.EventArgs)">
+            <summary>
+            Уведомление об изменении настроек
+            </summary>
+            <param name="cfg">Установленные настройки</param>
+            <param name="args">Стандартный аргумент уведомлений</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Cfg">
+            <summary>
+            Все настройки сервиса
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Processes">
+            <summary>
+            Список процессов
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.Handler">
+            <summary>
+            Делегат возвращающий головной процесс сервиса
+            </summary>
+            <returns>Головной процесс сервиса</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.Events">
+            <summary>
+            Класс событий сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Events.Wait(System.Int32)">
+            <summary>
+            Ожидание событий или таймера
+            Ожидается одно из событий Stopping и CfgChanged
+            </summary>
+            <param name="millisecsTimeout">время [ms], после которого выход происходит без возникновения событий</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Events.Wait">
+            <summary>
+            Ожидание событий
+            Ожидается одно из событий Stopping и CfgChanged
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Events.CfgChanged">
+            <summary>
+            Событие изменения настроек
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.Config">
+            <summary>
+            Класс настроек сервиса
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Config.#ctor(System.Xml.XmlDocument)">
+            <summary>
+            Настройки сервиса
+            </summary>
+            <param name="xml">Документ содержащий все настройки сервиса</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Config.ToString">
+            <summary>
+            Представление XML-содержимого настроек в виде строки
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Config.Read">
+            <summary>
+            Перегружаемый метод чтения настроек
+            </summary>
+            <remarks>По умолчанию ничего не делает</remarks>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Config.Write">
+            <summary>
+            Перегружаемый метод сохранения настроек
+            </summary>
+            <remarks>По умолчанию ничего не делает</remarks>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Config.NotifyChange">
+            <summary>
+            Уведомление изменения настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Config.Xml">
+            <summary>
+            Содержимое настроек в формате XML
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Config.Hash">
+            <summary>
+            Хэш-код содержимого настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Config.Processes">
+            <summary>
+            Список настроек процессов
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Config.ProcessesCheckRunDelay">
+            <summary>
+            Задержка проверки запуска процессов [ms]
+            Дипазон значений: >0, либо Timeout.Infinite (-1)
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Config.Threads">
+            <summary>
+            Настройки потоков
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.Config.ThreadSettings">
+            <summary>
+            Класс настроек потоков
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceMain.Config.ThreadSettings.Min">
+            <summary>
+            Минимальное кол-во потоков
+            </summary>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceMain.Config.ThreadSettings.Max">
+            <summary>
+            Максимальное кол-во потоков
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Config.ThreadSettings.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="cfg">Узел настроек потоков</param>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.Control">
+            <summary>
+            Класс интерфеса управления сервисом, передаваемый процессам
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.Control.#ctor(iTeco.Lib.Srv.ServiceMain.Handler)">
+            <summary>
+            Конструктор интерфеса управления
+            </summary>
+            <param name="main">Делегат для получения компонента основного потока</param>
+        </member>
+        <member name="F:iTeco.Lib.Srv.ServiceMain.Control.Empty">
+            <summary>
+            "Пустой" объект управления, для значений по умолчанию
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.Control.ServiceMain">
+            <summary>
+            Компонент основного потока
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceMain.ProcessList">
+            <summary>
+            Внутренняя реализация списка процессов,
+            реализующая многопоточный котроль выполняемых процессов
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.ProcessList.OnProcessStop(iTeco.Lib.Srv.ServiceProcessBase,System.EventArgs)">
+            <summary>
+            Уведомление о завершении работы процесса
+            </summary>
+            <param name="proc">Завершившийся процесс</param>
+            <param name="args">Стандартный аргумент уведомлений</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.ProcessList.Add(iTeco.Lib.Srv.ServiceProcessBase.Config,iTeco.Lib.Srv.ServiceMain.Events,iTeco.Lib.Srv.ServiceMain.Control)">
+            <summary>
+            Добавить процесс полученный по переданным настройкам,
+            получение процесса выполняется через метод ServiceProcessBase.QueryObject
+            </summary>
+            <param name="cfg">настройки процесса</param>
+            <param name="e">используемый объект событий</param>
+            <param name="ctrl">используемый компонент управления сервисом</param>
+            <returns>Добавленный процесс</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceMain.ProcessList.Stop(System.Boolean)">
+            <summary>
+            Остановить все процессы
+            </summary>
+            <param name="wait">флаг ожидания остановки</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.ProcessList.Count">
+            <summary>
+            Кол-во процессов,
+            перегружен для реализации межпотоковой блокировки при получении кол-ва элементов списка
+            </summary>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceMain.ProcessList.InternalThreads">
+            <summary>
+            Необходимое кол-во потоков
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.#ctor(iTeco.Lib.Srv.ServiceConfigFile.Settings)">
+            <summary>
+            Реальный конструктор класса
+            </summary>
+            <param name="settings">Объект реализующий реальную работу с файлом</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.#ctor(System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="filePath">Путь до xml-файла настроек</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.Read">
+            <summary>
+            Загрузить настройки из xml-фйала
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.Write">
+            <summary>
+            Сохранить настройки в xml-файл
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceConfigFile.Settings">
+            <summary>
+            Класс объекта непосредственно выполняющего все телодвижения с файлом
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.Settings.#ctor(System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="filePath">Путь до xml-файла настроек</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.Settings.Read">
+            <summary>
+            Прочитать xml-файл настроек
+            </summary>
+            <returns>xml-настройки</returns>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceConfigFile.Settings.Write(System.Xml.XmlDocument)">
+            <summary>
+            Записать настройки в xml-файл
+            </summary>
+            <param name="xml">xml-настройки</param>
+        </member>
+        <member name="P:iTeco.Lib.Srv.ServiceConfigFile.Settings.FilePath">
+            <summary>
+            Путь до файла конфигурации
+            </summary>
+        </member>
+        <member name="T:iTeco.Lib.Srv.ServiceProcessBaseHelper">
+            <summary>
+            Вспомогательные методы ServiceProcessBase
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.ServiceProcessBaseHelper.ToProcessConfig``1(iTeco.Lib.Srv.ServiceProcessBase.Config)">
+            <summary>
+            Получить объект типизированных параметров настроек процесса
+            </summary>
+            <typeparam name="T">Тип объекта</typeparam>
+            <param name="cfg">Стандартный объект настроек процесса</param>
+            <returns>Объект настроек с типизированными параметрами</returns>
+        </member>
+        <member name="T:iTeco.Lib.Srv.StorageThreadID">
+            <summary>
+            Реализация пула идентификаторов потоков процесса с использование хранилища
+            </summary>
+        </member>
+        <member name="M:iTeco.Lib.Srv.StorageThreadID.DoInit(System.Xml.XmlNode)">
+            <summary>
+            Выполнить первоначальную инициализацию
+            </summary>
+            <param name="cfg">Настройки объекта пула</param>
+        </member>
+        <member name="M:iTeco.Lib.Srv.StorageThreadID.Init(System.Object,System.Collections.Generic.HashSet{System.Int32})">
+            <summary>
+            Инициализировать список доступных для распределения идентификаторов потоков
+            </summary>
+            <param name="idProcess">Идентификатор процесса</param>
+            <param name="idUsed">Список используемых в данный момент идентификаторов</param>
+        </member>
+    </members>
+</doc>

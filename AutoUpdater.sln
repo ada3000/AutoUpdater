@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater.Api", "AutoUpdater.Api\AutoUpdater.Api.csproj", "{DC865196-F0E0-4C77-93AF-769514333384}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater.WebServer", "AutoUpdater.WebServer\AutoUpdater.WebServer.csproj", "{D2CC5299-29AE-4DD1-8984-8038D13CEAA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{233723EC-107A-4020-9336-F8898F599186}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\Base.Cls.dll = Libs\Base.Cls.dll
+		Libs\Base.Cls.pdb = Libs\Base.Cls.pdb
+		Libs\log4net.dll = Libs\log4net.dll
+		Libs\log4net.xml = Libs\log4net.xml
+		Libs\Newtonsoft.Json.dll = Libs\Newtonsoft.Json.dll
+		Libs\Newtonsoft.Json.xml = Libs\Newtonsoft.Json.xml
+		Libs\Srv.Cls.dll = Libs\Srv.Cls.dll
+		Libs\Srv.Cls.pdb = Libs\Srv.Cls.pdb
+		Libs\Srv.Cls.xml = Libs\Srv.Cls.xml
+		Libs\Srv.Config.State.dll = Libs\Srv.Config.State.dll
+		Libs\Srv.Config.State.pdb = Libs\Srv.Config.State.pdb
+		Libs\Srv.Config.State.xml = Libs\Srv.Config.State.xml
+		Libs\Srv.WebService.Cls.dll = Libs\Srv.WebService.Cls.dll
+		Libs\Srv.WebService.Cls.pdb = Libs\Srv.WebService.Cls.pdb
+		Libs\Srv.WebService.Cls.xml = Libs\Srv.WebService.Cls.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!Work", "!Work", "{B2C62992-C421-4498-BC30-6DF412803247}"
+	ProjectSection(SolutionItems) = preProject
+		Работы.txt = Работы.txt
+		Сделано.txt = Сделано.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{7B3BDC64-D7B3-479F-B5FC-DE92F3172FEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC865196-F0E0-4C77-93AF-769514333384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC865196-F0E0-4C77-93AF-769514333384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC865196-F0E0-4C77-93AF-769514333384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC865196-F0E0-4C77-93AF-769514333384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2CC5299-29AE-4DD1-8984-8038D13CEAA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CC5299-29AE-4DD1-8984-8038D13CEAA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CC5299-29AE-4DD1-8984-8038D13CEAA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CC5299-29AE-4DD1-8984-8038D13CEAA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3BDC64-D7B3-479F-B5FC-DE92F3172FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3BDC64-D7B3-479F-B5FC-DE92F3172FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3BDC64-D7B3-479F-B5FC-DE92F3172FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3BDC64-D7B3-479F-B5FC-DE92F3172FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Srv.Config.State</name>
+    </assembly>
+    <members>
+        <member name="T:iTeco.Srv.Config.ConfigStateHelper">
+            <summary>
+            Вспомогательные методы для работы с настройками
+            </summary>
+        </member>
+        <member name="M:iTeco.Srv.Config.ConfigStateHelper.GetPublicKey">
+            <summary>
+            Получить открытый ключ подписи сборки
+            </summary>
+            <returns>Открытый ключ подписи</returns>
+        </member>
+        <member name="M:iTeco.Srv.Config.ConfigStateHelper.SetConfigSignPublicKey``1(``0)">
+            <summary>
+            Установить открытый ключ подписи сборки настроек алгоритму шифрования
+            </summary>
+            <typeparam name="T">Тип алгорима шифрования</typeparam>
+            <param name="alg">Алгоритм шифрования</param>
+            <returns>Алгоритм шифрования с установленным открытым ключём</returns>
+        </member>
+        <member name="T:iTeco.Srv.Config.IConfigHost">
+            <summary>
+            Интерфейс сервера настроек
+            </summary>
+        </member>
+        <member name="M:iTeco.Srv.Config.IConfigHost.GetClientConfig(iTeco.Srv.Config.ClientInfo)">
+            <summary>
+            Получить настройки клиента
+            </summary>
+            <param name="info">Информация о клиенте подсистемы настроек</param>
+            <returns>Настройки клиента</returns>
+        </member>
+        <member name="T:iTeco.Srv.Config.ClientInfo">
+            <summary>
+            Информация о клиенте подсистемы настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ClientInfo.ID">
+            <summary>
+            Идентификатор клиента
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ClientInfo.MachineInfo">
+            <summary>
+            Информация о машине, на которой работает клиент
+            </summary>
+        </member>
+        <member name="T:iTeco.Srv.Config.ClientConfig">
+            <summary>
+            Настройки клиента подсистемы настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ClientConfig.ID">
+            <summary>
+            Идентификатор клиента
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ClientConfig.Config">
+            <summary>
+            Настройки
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ClientConfig.ServiceState">
+            <summary>
+            Состояние сервиса
+            </summary>
+        </member>
+        <member name="T:iTeco.Srv.Config.ServiceState">
+            <summary>
+            Информация о состоянии сервиса подсистемы настроек
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ServiceState.State">
+            <summary>
+            Состояние сервиса
+            </summary>
+        </member>
+        <member name="P:iTeco.Srv.Config.ServiceState.Desc">
+            <summary>
+            Описание
+            </summary>
+        </member>
+    </members>
+</doc>

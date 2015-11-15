@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <threads>
+    <min worker="" io="" />
+    <max worker="" io="" />
+  </threads>
+  <processes checkRunSecs="10">
+    <process id="Autoupdater" name="Autoupdater" assembly="Autoupdater.Api" class="AutoUpdater.Api.ClientProcess">
+      <connectionString>Server=music.vpn;Database=SmartHome;User Id=app;Password=app;</connectionString>
+      <!-- интервал проверки данных в минутах -->
+      <delayMin>5</delayMin>
+    </process>
+  </processes>
+</configuration>

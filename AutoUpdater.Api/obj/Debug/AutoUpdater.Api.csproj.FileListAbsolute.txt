@@ -1,0 +1,15 @@
+D:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.csprojResolveAssemblyReference.cache
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\AutoUpdater.Api.dll
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\AutoUpdater.Api.pdb
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Base.Cls.dll
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\log4net.dll
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.Cls.dll
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.dll
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Base.Cls.pdb
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\log4net.xml
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.Cls.pdb
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.Cls.xml
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.pdb
+D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.xml
+D:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.dll
+D:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.pdb

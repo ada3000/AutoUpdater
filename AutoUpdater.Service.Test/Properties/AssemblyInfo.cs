@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Updater")]
+[assembly: AssemblyTitle("FoF.Srv.Common.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Updater")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("i-Teco")]
+[assembly: AssemblyProduct("FoF.Srv.Common.Test")]
+[assembly: AssemblyCopyright("Copyright © i-Teco 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7b3bdc64-d7b3-479f-b5fc-de92f3172feb")]
+[assembly: Guid("d460948d-0411-4fb7-b556-de347250537f")]
 
 // Version information for an assembly consists of the following four values:
 //

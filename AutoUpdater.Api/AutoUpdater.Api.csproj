@@ -53,12 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdaterProcess.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="HttpDownloader.cs" />
     <Compile Include="PackageConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Cfg.AutoUpdaterProcess.xml" />
+    <Content Include="Cfg.AutoUpdater.Process.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Package.Example.xml" />
   </ItemGroup>
   <ItemGroup>

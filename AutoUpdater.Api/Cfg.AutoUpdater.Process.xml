@@ -6,7 +6,7 @@
   </threads>
   <processes checkRunSecs="10">
     <process id="Autoupdater" name="Autoupdater" assembly="Autoupdater.Api" class="AutoUpdater.Api.AutoUpdaterProcess">
-      <sourceUrl>http://autoupdater/SmartMonitoring.win</sourceUrl>
+      <sourceUrl>http://autoupdater.a-d-a.ru/SmartMonitoring.Win</sourceUrl>
       <instanceName>MyServerName</instanceName>
       <!-- интервал проверки данных в минутах -->
       <checkDelayMin>60</checkDelayMin>

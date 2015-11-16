@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<threads>
+		<min worker="200" io="200" />
+		<max worker="500" io="500" />
+	</threads>
+	<processes checkRunSecs="10">
+
+    
+    <_fileReference file="Cfg.AutoUpdater.Process.xml" nodes_path="/configuration/processes/process"/>    
+    
+  </processes>
+</configuration>

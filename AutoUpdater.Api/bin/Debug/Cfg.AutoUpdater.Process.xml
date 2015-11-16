@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <threads>
+    <min worker="" io="" />
+    <max worker="" io="" />
+  </threads>
+  <processes checkRunSecs="10">
+    <process id="Autoupdater" name="Autoupdater" assembly="Autoupdater.Api" class="AutoUpdater.Api.AutoUpdaterProcess">
+      <sourceUrl>http://autoupdater.a-d-a.ru/SmartMonitoring.Win</sourceUrl>
+      <instanceName>MyServerName</instanceName>
+      <!-- интервал проверки данных в минутах -->
+      <checkDelayMin>60</checkDelayMin>
+      <!-- Рабочая папка для загрузки обновлений -->
+      <workFolder>AutoUpdater</workFolder>
+    </process>
+  </processes>
+</configuration>

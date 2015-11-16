@@ -52,15 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientProcess.cs" />
+    <Compile Include="AutoUpdaterProcess.cs" />
+    <Compile Include="HttpDownloader.cs" />
     <Compile Include="PackageConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Cfg.ClientProcess.xml" />
+    <Content Include="Cfg.AutoUpdaterProcess.xml" />
+    <Content Include="Package.Example.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientProcess.Config.cs" />
+    <Compile Include="AutoUpdaterProcess.Config.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

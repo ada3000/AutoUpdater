@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace AutoUpdater.Api
 {
     [XmlRoot("process")]
-    public class ClientProcessConfig
+	public class AutoUpdaterProcessConfig
     {
         /// <summary>
         /// Адрес сервера обновлений
@@ -20,5 +20,15 @@ namespace AutoUpdater.Api
         /// </summary>
         [XmlElement("instanceName")]
         public string InstanceName;
+		/// <summary>
+		/// Интервал проверки новой версии в минутах
+		/// </summary>
+		[XmlElement("checkDelayMin")]
+		public int CheckDelayMin;
+		/// <summary>
+		/// Рабочая папка для загрузки обновлений
+		/// </summary>
+		[XmlElement("workFolder")]
+		public string WorkFolder;
     }
 }

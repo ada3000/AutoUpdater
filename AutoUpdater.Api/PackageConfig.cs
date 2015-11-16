@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace AutoUpdater.Api
 {
-    [XmlRoot("packageConfig")]
+    [XmlRoot("package")]
     public class PackageConfig
     {
         /// <summary>

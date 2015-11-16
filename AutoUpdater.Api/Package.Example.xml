@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package>
+  <name>Smart Monitoring Service</name>
+  <version>1.0.0.0</version>
+  <serviceName>SH.Service</serviceName>
+  <distUrl>dist.zip</distUrl>
+
+  <onBeforeUpdateAction></onBeforeUpdateAction>
+  <onSuccessUpdateAction></onSuccessUpdateAction>
+  <onErrorUpdateAction></onErrorUpdateAction>
+  
+  <!-- Пропуск существующих файлов при обновлении -->
+  <skipFilesIfExists>
+    <f>Service.Processes.xml</f>
+    <f>Cfg.TelemetryMonitor.Process.xml</f>
+    <f>Cfg.TelemetryProvider.Process.xml</f>
+    <f>Cfg.TelemetryPush.Provider.Process.xml</f>
+    <f>Cfg.TelemetryPush.Server.Process.xml</f>    
+  </skipFilesIfExists>
+</package>

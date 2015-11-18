@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Base.Cls">
-      <HintPath>..\Libs\Base.Cls.dll</HintPath>
+    <Reference Include="Base.Cls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\SmartHome\Libs\Base.Cls.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
@@ -58,16 +59,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoUpdater.Api\AutoUpdater.Api.csproj">
-      <Project>{dc865196-f0e0-4c77-93af-769514333384}</Project>
-      <Name>AutoUpdater.Api</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\AutoUpdater.Service.Test\Service.log4net.xml">
       <Link>Service.log4net.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoUpdater.Api\AutoUpdater.Api.csproj">
+      <Project>{dc865196-f0e0-4c77-93af-769514333384}</Project>
+      <Name>AutoUpdater.Api</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

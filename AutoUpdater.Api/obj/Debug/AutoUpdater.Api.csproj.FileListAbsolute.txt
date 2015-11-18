@@ -13,7 +13,6 @@ D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.pdb
 D:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.xml
 D:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.dll
 D:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.pdb
-E:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.csprojResolveAssemblyReference.cache
 E:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.dll
 E:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.pdb
 E:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\AutoUpdater.Api.dll
@@ -29,3 +28,4 @@ E:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.Cls.xml
 E:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.pdb
 E:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Srv.WebService.Cls.xml
 E:\Git\AutoUpdater\AutoUpdater.Api\bin\Debug\Cfg.AutoUpdater.Process.xml
+E:\Git\AutoUpdater\AutoUpdater.Api\obj\Debug\AutoUpdater.Api.csprojResolveAssemblyReference.cache

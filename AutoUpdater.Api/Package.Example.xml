@@ -10,8 +10,13 @@
   <onErrorUpdateAction></onErrorUpdateAction>
   
   <!-- Пропуск существующих файлов при обновлении -->
-  <skipFilesIfExists>
+  <skipFilesIfExists>    
     <f>Service.Processes.xml</f>
+    <f>Updater.exe</f>
+    <f>log4net.dll</f>
+    <f>AutoUpdater.Api.dll</f>
+    <f>Base.Cls.dll</f>
+    <f>Cfg.AutoUpdater.Process.xml</f>
     <f>Cfg.TelemetryMonitor.Process.xml</f>
     <f>Cfg.TelemetryProvider.Process.xml</f>
     <f>Cfg.TelemetryPush.Provider.Process.xml</f>

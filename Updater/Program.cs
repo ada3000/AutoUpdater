@@ -5,28 +5,28 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using log4net;
+using System.ServiceProcess;
+using System.Threading;
 
 using iTeco.Lib.Base;
 
+using log4net;
+
 using AutoUpdater.Api;
 using Microsoft.Win32;
-using System.ServiceProcess;
-using System.Threading;
 
 namespace Updater
 {
 	class Program
 	{
+		private const int MaxUpdateTries = 5;
+
 		static readonly ILog Logger = LogManager.GetLogger("AutoUpdaterProcess");
 		static FileManager _mgr = null;
 
 		static void Main(string[] args)
 		{
 			Logger.Debug("Updater proc ...");
-
-			string sourceFolder = null;
 
 			try
 			{
@@ -35,37 +35,65 @@ namespace Updater
 
 				_mgr = new FileManager(args[0]);
 
-				if(_mgr.InstalledVersion==_mgr.DownloadedVersion)
+				if (_mgr.InstalledVersion == _mgr.DownloadedVersion)
 				{
 					Logger.Debug("Service already updated!");
 					return;
 				}
 
+				TryUpdate();
+				
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Updater proc: " + ex);
+			}
+
+			Logger.Debug("Updater proc: end");
+		}
+
+		private static void TryUpdate()
+		{
+			Exception lastError = null;
+
+			for (int i = 0; i < MaxUpdateTries; i++)
+				try
+				{
+					DoUpdate();
+					break;
+				}
+				catch (Exception innerEx)
+				{
+					lastError = innerEx;
+				}
+
+			if (lastError != null)
+				throw lastError;
+		}
+
+		private static void DoUpdate()
+		{
+			string sourceFolder = null;
+
+			try
+			{
 				PackageConfig package = _mgr.LoadPackageDesc().ToXmlReader().Deserialize<PackageConfig>();
 
 				sourceFolder = UnpackDist();
 				string serviceFolder = GetServiceFolder(package.ServiceName);
 
-				CopySkipFiles(package.SkipFilesIfExists, serviceFolder, sourceFolder);
-				
 				StopService(package.ServiceName);
-				
-				UpdateFiles(sourceFolder, serviceFolder);
+
+				UpdateFiles(sourceFolder, serviceFolder, package.SkipFilesIfExists);
 				UpdateVersion(package.Version);
 
 				StartService(package.ServiceName);
-			}
-			catch (Exception ex)
-			{
-				Logger.Error("Updater proc: " + ex);
 			}
 			finally
 			{
 				if (!string.IsNullOrEmpty(sourceFolder))
 					ClearFolder(sourceFolder);
 			}
-
-			Logger.Debug("Updater proc: end");
 		}
 
 		private static void UpdateVersion(string version)
@@ -88,9 +116,9 @@ namespace Updater
 
 				Directory.Delete(sourceFolder);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				Logger.Error("ClearFolder: "+ex);
+				Logger.Error("ClearFolder: " + ex);
 			}
 
 			Logger.Debug("ClearFolder end");
@@ -101,7 +129,7 @@ namespace Updater
 			Logger.Debug("StartService ...");
 
 			ServiceController sc = new ServiceController(serviceName);
-			if (sc.Status!= ServiceControllerStatus.Running)
+			if (sc.Status != ServiceControllerStatus.Running)
 			{
 				sc.Start();
 
@@ -121,15 +149,20 @@ namespace Updater
 
 		}
 
-		private static void UpdateFiles(string sourceFolder, string destFolder)
+		private static void UpdateFiles(string sourceFolder, string destFolder, string[] skipFiles)
 		{
 			Logger.Debug("UpdateFiles ...");
+
+			skipFiles = skipFiles ?? new string[] { };
 
 			string[] files = Directory.GetFiles(sourceFolder);
 
 			foreach (var file in files)
 			{
-				var sourceFileName = file.Substring(file.LastIndexOf("\\")+1);
+				var sourceFileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+				if (skipFiles.Contains(sourceFileName)) continue;
+
 				var destFile = Path.Combine(destFolder, sourceFileName);
 
 				File.Copy(file, destFile, true);
@@ -164,22 +197,22 @@ namespace Updater
 			Logger.Debug("StopService end");
 		}
 
-		private static void CopySkipFiles(string[] files, string sourceFolder, string destFolder)
-		{
-			if (files == null) return;
+		//private static void CopySkipFiles(string[] files, string sourceFolder, string destFolder)
+		//{
+		//	if (files == null) return;
 
-			Logger.Debug("CopySkipFiles ...");
+		//	Logger.Debug("CopySkipFiles ...");
 
-			foreach (var file in files)
-			{
-				var sourceFile = Path.Combine(sourceFolder, file);
-				var destFile = Path.Combine(destFolder, file);
+		//	foreach (var file in files)
+		//	{
+		//		var sourceFile = Path.Combine(sourceFolder, file);
+		//		var destFile = Path.Combine(destFolder, file);
 
-				File.Copy(sourceFile, destFile, true);
-			}
+		//		File.Copy(sourceFile, destFile, true);
+		//	}
 
-			Logger.Debug("CopySkipFiles end");
-		}
+		//	Logger.Debug("CopySkipFiles end");
+		//}
 
 		private static string GetServiceFolder(string serviceName)
 		{

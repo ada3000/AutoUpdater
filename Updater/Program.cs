@@ -159,6 +159,8 @@ namespace Updater
 					throw new Exception("can't stop service! serviceName=" + serviceName);
 			}
 
+			Thread.Sleep(20000);
+
 			Logger.Debug("StopService end");
 		}
 

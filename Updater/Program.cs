@@ -14,6 +14,7 @@ using log4net;
 
 using AutoUpdater.Api;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace Updater
 {
@@ -24,7 +25,9 @@ namespace Updater
 		static readonly ILog Logger = LogManager.GetLogger("AutoUpdaterProcess");
 		static FileManager _mgr = null;
 
-		static void Main(string[] args)
+        static PackageConfig _package = null;
+
+        static void Main(string[] args)
 		{
 			Logger.Debug("Updater proc ...");
 
@@ -34,23 +37,52 @@ namespace Updater
 					throw new ArgumentException("Входная папка не задана");
 
 				_mgr = new FileManager(args[0]);
+                _package = _mgr.LoadPackageDesc().ToXmlReader().Deserialize<PackageConfig>();
 
-				if (_mgr.InstalledVersion == _mgr.DownloadedVersion)
+                if (_mgr.InstalledVersion == _mgr.DownloadedVersion)
 				{
 					Logger.Debug("Service already updated!");
 					return;
 				}
 
-				TryUpdate();
-				
-			}
+                StartAndWaitAction("OnBeforeUpdateAction", _package.OnBeforeUpdateAction);
+
+                TryUpdate();
+
+                StartAndWaitAction("OnSuccessUpdateAction", _package.OnSuccessUpdateAction);
+            }
 			catch (Exception ex)
 			{
 				Logger.Error("Updater proc: " + ex);
-			}
+                StartAndWaitAction("OnErrorUpdateAction", _package.OnErrorUpdateAction);
+            }
 
 			Logger.Debug("Updater proc: end");
 		}
+
+        static void StartAndWaitAction(string name, string command)
+        {
+            Logger.Debug("Updater proc: StartAction name="+name+" cmd="+command);
+            if (string.IsNullOrEmpty(command))
+            {
+                Logger.Debug("Updater proc: StartAction empty action");
+                return;
+            }
+
+            try
+            {
+                var p=Process.Start(command);
+                p.WaitForExit();
+                if (p.ExitCode != 0)
+                    throw new Exception("Invalid ExitCode=" + p.ExitCode);
+
+                Logger.Debug("Updater proc: StartAction sucess");
+            }
+            catch(Exception ex)
+            {
+                Logger.Error("Updater proc: StartAction "+ex);
+            }
+        }
 
 		private static void TryUpdate()
 		{
@@ -77,17 +109,15 @@ namespace Updater
 
 			try
 			{
-				PackageConfig package = _mgr.LoadPackageDesc().ToXmlReader().Deserialize<PackageConfig>();
-
 				sourceFolder = UnpackDist();
-				string serviceFolder = GetServiceFolder(package.ServiceName);
+				string serviceFolder = GetServiceFolder(_package.ServiceName);
 
-				StopService(package.ServiceName);
+				StopService(_package.ServiceName);
 
-				UpdateFiles(sourceFolder, serviceFolder, package.SkipFilesIfExists);
-				UpdateVersion(package.Version);
+				UpdateFiles(sourceFolder, serviceFolder, _package.SkipFilesIfExists);
+				UpdateVersion(_package.Version);
 
-				StartService(package.ServiceName);
+				StartService(_package.ServiceName);
 			}
 			finally
 			{
